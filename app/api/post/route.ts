@@ -15,8 +15,6 @@ export async function POST(req: Request) {
 
     const { title, description, campaign_name, employment, year_salary, location } = body;
 
-    console.log("body :>> ", body);
-    console.log("user :>> ", user);
     await db.post.create({
       data: {
         title,
@@ -31,7 +29,6 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ message: "The post have added" });
   } catch (error) {
-    console.log("error :>> ", error);
     NextResponse.json({ message: "Something went wrong", error }, { status: 500 });
   }
 }
