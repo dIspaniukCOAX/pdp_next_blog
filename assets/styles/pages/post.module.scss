@@ -1,5 +1,7 @@
 .post {
   &__content {
+    max-height: 120px;
+    overflow: hidden;
     & p {
       overflow: hidden;
       text-overflow: ellipsis;

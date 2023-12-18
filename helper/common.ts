@@ -24,7 +24,9 @@ export const handleRefreshToken = async () => {
   if (accessToken === "undefined" || refreshToken === "undefined") {
     appLogout();
   }
-  if (!accessToken && !refreshToken) return;
+  if (!accessToken && !refreshToken){
+    appLogout();
+  };
 
   const result: {
     access_token: string,

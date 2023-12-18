@@ -14,13 +14,14 @@ import { getNotification } from "@/helper/notifications";
 import { NotificationsTypes } from "@/enum/notification.enum";
 import { IErrorResponse } from "@/types/common.type";
 import { useRouter } from "next/navigation";
+import { useCreateUser } from "@/query/User/useCreateUser";
 
 export default function SignUp() {
   const router = useRouter();
+  const { addUser } = useCreateUser();
   const {
     control,
     handleSubmit,
-    setError,
     formState: { errors },
   } = useForm<ISignUp>({
     defaultValues: {
@@ -32,19 +33,7 @@ export default function SignUp() {
   });
 
   const onSubmit = async (data: ISignUp) => {
-    try {
-      await instance.post("/api/user", data);
-      router.push("signin");
-    } catch (error) {
-      setError("root.authError", {
-        type: "manual",
-        message: (error as IErrorResponse).message,
-      });
-      getNotification({
-        type: NotificationsTypes.ERROR,
-        message: `${(error as IErrorResponse).message}`,
-      });
-    }
+    addUser(data)
   };
 
   return (
@@ -110,9 +99,6 @@ export default function SignUp() {
         </Form.Field>
       </Form.Content>
       <Form.Footer>
-        <p className="mb-3 text-red-500 text-center">
-          {errors?.root?.authError.message}
-        </p>
         <p className="text-sm font-light text-gray-500 text-gray-400 text-center">
           Already have an account?
           <Link

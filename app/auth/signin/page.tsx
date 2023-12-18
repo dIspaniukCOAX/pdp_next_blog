@@ -8,12 +8,10 @@ import Link from "next/link";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { signInSchema } from "@/schemas/signin.schema";
-import { useRouter } from "next/navigation";
 import { useUserLogin } from "@/query/Login/useUserLogin";
 import { ISignInRequest } from "@/types/signin.type";
 
 export default function SignIn() {
-  const router = useRouter();
   const {
     control,
     handleSubmit,
@@ -28,7 +26,6 @@ export default function SignIn() {
   const { postUserData, isLoading } = useUserLogin();
   const onSubmit = async (data: ISignInRequest) => {
     postUserData(data);
-    router.push("/posts")
   };
 
   if(isLoading) {

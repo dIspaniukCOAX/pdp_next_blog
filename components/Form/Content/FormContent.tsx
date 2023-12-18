@@ -16,7 +16,7 @@ export default function FormContent<T>({
     <form
       noValidate={true}
       autoComplete="off"
-      className="space-y-4 md:space-y-6"
+      className="space-y-10 md:space-y-6"
       onSubmit={handleSubmit}
     >
       {children}

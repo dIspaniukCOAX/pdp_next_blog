@@ -18,7 +18,8 @@
 
 body {
   color: var(--foreground-rgb);
-  font-size: 16px;
+  font-size: 14px;
+  position: relative;
   background: linear-gradient(
       to bottom,
       transparent,
@@ -29,5 +30,5 @@ body {
 
 .ql-container.ql-snow {
   min-height: 150px;
-  font-size: 16px;
+  font-size: 14px;
 }

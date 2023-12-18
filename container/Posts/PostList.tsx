@@ -4,19 +4,10 @@ import React, { useEffect, useState } from "react";
 import PostsCard from "@/components/PostsCard/PostsCard";
 import { IPost } from "@/types/post.type";
 import { Loader } from "@/components";
-import instance from "@/lib/instance";
+import { useGetPosts } from "@/query/Posts/useGetPosts";
 
 const PostList = () => {
-  const [posts, setPosts] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    setIsLoading(true);
-    instance.get("/api/posts").then((data: any) => {
-      setPosts(data)
-      setIsLoading(false)
-    })
-  }, [])
+  const { listOfPosts, isLoading  } = useGetPosts();
 
   if (isLoading) {
     return <Loader isFullPageLoader={true} />;
@@ -24,7 +15,11 @@ const PostList = () => {
 
   return (
     <div className="flex flex-col items-center flex-1 w-full px-4 py-4 mx-auto text-left lg:py-10 ">
-      {posts?.map((post: IPost, index: number) => (
+      {!(listOfPosts as unknown as IPost[])?.length ? (
+        <span className="text-center text-gray-500">
+          No posts have been created yet.
+        </span>
+      ) :(listOfPosts as unknown as IPost[])?.map((post: IPost, index: number) => (
         <PostsCard key={index} post={post} />
       ))}
     </div>

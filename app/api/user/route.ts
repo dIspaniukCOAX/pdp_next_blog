@@ -40,7 +40,7 @@ export async function POST(req: Request) {
     const access_token = signJwtAccessToken(body);
     const refresh_token = signJwtRefreshToken(body);
 
-    await db.user.create({
+    const user = await db.user.create({
       data: {
         username,
         email,
@@ -50,9 +50,9 @@ export async function POST(req: Request) {
       },
     });
 
-    return NextResponse.json({
-      message: "The user have been created successful",
-    });
+    const { password: userPass, refresh_token: userRefreshToken, ...userDetails } = user
+
+    return NextResponse.json(userDetails);
   } catch (error) {
     NextResponse.json(
       { message: "Something went wrong", error },

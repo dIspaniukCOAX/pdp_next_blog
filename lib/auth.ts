@@ -25,11 +25,12 @@ export const authOptions: NextAuthOptions = {
         if (!credentials?.email || !credentials?.password) {
           return null;
         }
-        const response = await instance.post("/api/login", credentials)
+        const response = await instance.post("/api/login", credentials);
+
         if(response){
           return response as unknown as ISignInResponse
         } else {
-          return null
+          throw new Error( JSON.stringify({ errors: "Invalid credentials", status: 401 }))
         }
       },
     }),
