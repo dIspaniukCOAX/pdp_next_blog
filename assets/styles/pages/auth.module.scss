@@ -1,0 +1,14 @@
+.auth {
+    &__wrapper {
+        min-height: calc(100vh - 88px);
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    &__field {
+        &-input{
+            background-color: inherit;
+        }
+    }
+}

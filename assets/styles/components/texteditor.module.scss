@@ -1,0 +1,27 @@
+.text-editor {
+  margin: 8px 0 24px;
+  margin-bottom: 0;
+  color: #000000;
+  background-color: #fff;
+
+  & .ql-toolbar.ql-snow{
+    border-radius: "8px 8px 0px 0px" !important;
+  }
+  & .ql-toolbar.ql-snow + .ql-container.ql-snow {
+    border-radius: "0px 0px 8px 8px";
+  }
+  & .ql-editor {
+    min-height: "75px";
+    &.ql-blank::before {
+      color: rgba(0, 0, 0, 0.6);
+    }
+  }
+  & .ql-toolbar {
+    & .ql-stroke {
+      stroke: #444;
+    }
+  }
+  & .ql-picker-label::before {
+    color: #444;
+  }
+}

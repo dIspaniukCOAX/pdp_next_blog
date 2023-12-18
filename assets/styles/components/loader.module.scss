@@ -1,0 +1,12 @@
+.loader {
+    &__container{
+        min-height: calc(100vh - 92px);
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    &__content {
+        max-width: 100px;
+    }
+}
