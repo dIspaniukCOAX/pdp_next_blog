@@ -6,7 +6,7 @@ import Cookies from "universal-cookie";
 const cookies = new Cookies();
 
 const instance = axios.create({
-  baseURL: process.env.NEXT_APP_API_URL,
+  baseURL: process.env.NEXT_APP_API_URL
 });
 
 instance.interceptors.request.use(
@@ -40,8 +40,14 @@ instance.interceptors.response.use(
 
       instance.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
 
-      cookies.set("token_access", response.access_token, { path: "/", domain: process.env.NEXT_BASE_URL });
-      cookies.set("token_ref", response.refresh_token, { path: "/", domain: process.env.NEXT_BASE_URL });
+      cookies.set("token_access", response.access_token, {
+        path: "/",
+        domain: process.env.NEXT_BASE_URL
+      });
+      cookies.set("token_ref", response.refresh_token, {
+        path: "/",
+        domain: process.env.NEXT_BASE_URL
+      });
 
       return instance(error?.request?.responseURL);
     }
@@ -54,4 +60,3 @@ instance.interceptors.response.use(
 );
 
 export default instance;
-

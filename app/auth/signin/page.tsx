@@ -15,30 +15,27 @@ export default function SignIn() {
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm({
     defaultValues: {
       email: "",
-      password: "",
+      password: ""
     },
-    resolver: yupResolver(signInSchema),
+    resolver: yupResolver(signInSchema)
   });
   const { postUserData, isLoading } = useUserLogin();
   const onSubmit = async (data: ISignInRequest) => {
     postUserData(data);
   };
 
-  if(isLoading) {
-    return <Loader isFullPageLoader={true} />
+  if (isLoading) {
+    return <Loader isFullPageLoader={true} />;
   }
 
   return (
     <>
       <Form title="Sign in to your account">
-        <Form.Content
-          handleSubmit={handleSubmit(onSubmit)}
-          buttonText="Sign In"
-        >
+        <Form.Content handleSubmit={handleSubmit(onSubmit)} buttonText="Sign In">
           <Form.Field errorMessage={errors.email?.message} labelText="Your Email" labelId="email">
             <Controller
               control={control}
@@ -55,7 +52,11 @@ export default function SignIn() {
               )}
             />
           </Form.Field>
-          <Form.Field errorMessage={errors.password?.message} labelText="Your Password" labelId="password">
+          <Form.Field
+            errorMessage={errors.password?.message}
+            labelText="Your Password"
+            labelId="password"
+          >
             <Controller
               control={control}
               name="password"

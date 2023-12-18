@@ -1,3 +1,38 @@
 {
-  "extends": "next/core-web-vitals"
+  "parser": "@typescript-eslint/parser",
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "extends": [
+    "next",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "prettier"
+  ],
+  "plugins": ["@typescript-eslint", "prettier", "graphql"],
+  "rules": {
+    "@typescript-eslint/no-unused-vars": ["error"],
+    "@typescript-eslint/no-explicit-any": "off",
+    "prettier/prettier": "error",
+    "no-var": "warn",
+    "no-console": "off",
+    "func-call-spacing": "off",
+    "no-useless-escape": "warn",
+    "react/prop-types": "off",
+    "no-unused-vars": "off",
+    "eol-last": ["error", "always"],
+    "no-shadow": "off",
+    "no-undefined": "off",
+    "dot-notation": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "babel-module": {}
+    },
+    "react": {
+      "version": "detect"
+    }
+  }
 }

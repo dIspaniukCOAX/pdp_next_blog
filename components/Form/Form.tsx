@@ -5,7 +5,7 @@ import Field from "./Field/Field";
 import FormContent from "./Content/FormContent";
 import Footer from "./Footer/Footer";
 
-export interface ContentComposition<T> {
+export interface ContentComposition {
   Field?: FC<PropsWithChildren>;
   Footer?: FC<PropsWithChildren>;
 }
@@ -16,11 +16,7 @@ interface IForm {
   classes?: string;
 }
 
-function Form<T>({
-  children,
-  title,
-  classes,
-}: PropsWithChildren<IForm> & ContentComposition<T>) {
+function Form({ children, title, classes }: PropsWithChildren<IForm> & ContentComposition) {
   return (
     <div
       className={`${

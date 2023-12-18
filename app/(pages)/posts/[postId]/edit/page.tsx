@@ -13,7 +13,7 @@ import { useSession } from "next-auth/react";
 import { useDeletePost } from "@/query/Posts/useDeletePost";
 
 const PostEdit = ({
-  params,
+  params
 }: {
   params?: {
     postId: string;
@@ -22,26 +22,26 @@ const PostEdit = ({
   const router = useRouter();
   const session = useSession();
   const { postData, isLoading, isError, error } = useGetPost(params?.postId || "");
-  const { updatePost } = useUpdatePost(params?.postId || "")
+  const { updatePost } = useUpdatePost(params?.postId || "");
   const { deletePost } = useDeletePost();
 
   if (isLoading) {
     return <Loader isFullPageLoader={true} />;
   }
 
-  if ((isError && error?.errorCode === 404 ) || (session.data?.user.id !== postData.authorId)) {
+  if ((isError && error?.errorCode === 404) || session.data?.user.id !== postData.authorId) {
     return notFound();
   }
 
   const handleSubmit = (data: IPost) => {
-    updatePost(data as any)
-  }
+    updatePost(data as any);
+  };
 
   const handleDelete = () => {
-    if(params?.postId){
-      deletePost(params?.postId)
+    if (params?.postId) {
+      deletePost(params?.postId);
     }
-  }
+  };
 
   return (
     <div>
@@ -61,10 +61,7 @@ const PostEdit = ({
         </button>
       </div>
       <div className="mb-10">
-        <PostContent
-          postData={postData}
-          onSubmit={handleSubmit}
-        />
+        <PostContent postData={postData} onSubmit={handleSubmit} />
       </div>
     </div>
   );

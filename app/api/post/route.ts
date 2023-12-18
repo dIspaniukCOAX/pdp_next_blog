@@ -13,14 +13,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
-    const {
-      title,
-      description,
-      campaign_name,
-      employment,
-      year_salary,
-      location,
-    } = body;
+    const { title, description, campaign_name, employment, year_salary, location } = body;
 
     console.log("body :>> ", body);
     console.log("user :>> ", user);
@@ -32,17 +25,14 @@ export async function POST(req: Request) {
         employment,
         year_salary,
         location,
-        authorId: user?.id,
-      },
+        authorId: user?.id
+      }
     });
 
     return NextResponse.json({ message: "The post have added" });
   } catch (error) {
     console.log("error :>> ", error);
-    NextResponse.json(
-      { message: "Something went wrong", error },
-      { status: 500 }
-    );
+    NextResponse.json({ message: "Something went wrong", error }, { status: 500 });
   }
 }
 
@@ -64,7 +54,7 @@ export async function GET(req: NextRequest) {
 
     const post = await db.post.findFirst({
       where: {
-        id: postId,
+        id: postId
       },
       include: {
         author: {
@@ -73,10 +63,10 @@ export async function GET(req: NextRequest) {
             email: true,
             username: true,
             created_at: true,
-            updated_at: true,
-          },
-        },
-      },
+            updated_at: true
+          }
+        }
+      }
     });
 
     if (!post) {
@@ -85,10 +75,7 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json(post);
   } catch (error) {
-    NextResponse.json(
-      { message: "Something went wrong", error },
-      { status: 500 }
-    );
+    NextResponse.json({ message: "Something went wrong", error }, { status: 500 });
   }
 }
 
@@ -110,15 +97,15 @@ export async function PATCH(req: NextRequest) {
 
     const postAuthorId = await db.post.findFirst({
       where: {
-        id: postId,
+        id: postId
       },
       include: {
         author: {
           select: {
-            id: true,
-          },
-        },
-      },
+            id: true
+          }
+        }
+      }
     });
 
     if (postAuthorId?.author?.id !== jwtData.id) {
@@ -130,19 +117,16 @@ export async function PATCH(req: NextRequest) {
 
     const post = await db.post.update({
       where: {
-        id: postId,
+        id: postId
       },
       data: {
-        ...body,
-      },
+        ...body
+      }
     });
 
     return NextResponse.json(post);
   } catch (error) {
-    return NextResponse.json(
-      { message: "Something went wrong", error },
-      { status: 500 }
-    );
+    return NextResponse.json({ message: "Something went wrong", error }, { status: 500 });
   }
 }
 
@@ -163,15 +147,15 @@ export async function DELETE(req: NextRequest) {
 
     const postAuthorId = await db.post.findFirst({
       where: {
-        id: postId,
+        id: postId
       },
       include: {
         author: {
           select: {
-            id: true,
-          },
-        },
-      },
+            id: true
+          }
+        }
+      }
     });
 
     if (postAuthorId?.author?.id !== jwtData.id) {
@@ -183,15 +167,12 @@ export async function DELETE(req: NextRequest) {
 
     await db.post.delete({
       where: {
-        id: postId,
-      },
+        id: postId
+      }
     });
 
     return NextResponse.json({});
   } catch (error) {
-    return NextResponse.json(
-      { message: "Something went wrong", error },
-      { status: 500 }
-    );
+    return NextResponse.json({ message: "Something went wrong", error }, { status: 500 });
   }
 }

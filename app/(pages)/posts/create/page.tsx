@@ -29,9 +29,7 @@ const PostCreate = () => {
         Back
       </button>
       <div className="mb-10">
-        <PostContent
-          onSubmit={onSubmit}
-        />
+        <PostContent onSubmit={onSubmit} />
       </div>
     </div>
   );

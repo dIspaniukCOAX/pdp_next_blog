@@ -5,11 +5,11 @@ interface SignOption {
 }
 
 const DEFAULT_SHORT_SIGN_OPTION = {
-  expiresIn: "1h",
+  expiresIn: "1h"
 };
 
 const DEFAULT_LONG_SIGN_OPTION = {
-  expiresIn: "2h",
+  expiresIn: "2h"
 };
 
 export function signJwtAccessToken(

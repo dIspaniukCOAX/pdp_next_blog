@@ -8,42 +8,32 @@ import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { signUpSchema } from "@/schemas/signup.schema";
-import instance from "@/lib/instance";
 import { ISignUp } from "@/types/signup.type";
-import { getNotification } from "@/helper/notifications";
-import { NotificationsTypes } from "@/enum/notification.enum";
-import { IErrorResponse } from "@/types/common.type";
-import { useRouter } from "next/navigation";
 import { useCreateUser } from "@/query/User/useCreateUser";
 
 export default function SignUp() {
-  const router = useRouter();
   const { addUser } = useCreateUser();
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm<ISignUp>({
     defaultValues: {
       username: "",
       email: "",
-      password: "",
+      password: ""
     },
-    resolver: yupResolver(signUpSchema),
+    resolver: yupResolver(signUpSchema)
   });
 
   const onSubmit = async (data: ISignUp) => {
-    addUser(data)
+    addUser(data);
   };
 
   return (
     <Form title="Create account">
       <Form.Content handleSubmit={handleSubmit(onSubmit)} buttonText="Sign Up">
-        <Form.Field
-          errorMessage={errors.username?.message}
-          labelText="Username"
-          labelId="username"
-        >
+        <Form.Field errorMessage={errors.username?.message} labelText="Username" labelId="username">
           <Controller
             control={control}
             name="username"
@@ -59,11 +49,7 @@ export default function SignUp() {
             )}
           />
         </Form.Field>
-        <Form.Field
-          errorMessage={errors.email?.message}
-          labelText="Your Email"
-          labelId="email"
-        >
+        <Form.Field errorMessage={errors.email?.message} labelText="Your Email" labelId="email">
           <Controller
             control={control}
             name="email"

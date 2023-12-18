@@ -11,8 +11,8 @@ export async function POST(req: Request) {
 
     const isEmailExist = await db.user.findUnique({
       where: {
-        email,
-      },
+        email
+      }
     });
 
     if (isEmailExist) {
@@ -24,8 +24,8 @@ export async function POST(req: Request) {
 
     const isUsernameExist = await db.user.findUnique({
       where: {
-        username,
-      },
+        username
+      }
     });
 
     if (isUsernameExist || isEmailExist) {
@@ -47,17 +47,15 @@ export async function POST(req: Request) {
         password: hashPass,
         access_token,
         refresh_token
-      },
+      }
     });
 
-    const { password: userPass, refresh_token: userRefreshToken, ...userDetails } = user
+    // eslint-disable-next-line
+    const { password: userPass, refresh_token: userRefreshToken, ...userDetails } = user;
 
     return NextResponse.json(userDetails);
   } catch (error) {
-    NextResponse.json(
-      { message: "Something went wrong", error },
-      { status: 500 }
-    );
+    NextResponse.json({ message: "Something went wrong", error }, { status: 500 });
   }
   return NextResponse.json({ success: "true" });
 }

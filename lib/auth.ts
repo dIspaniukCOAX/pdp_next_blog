@@ -9,17 +9,17 @@ export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(db),
   secret: process.env.NEXTAUTH_SECRET,
   session: {
-    strategy: "jwt",
+    strategy: "jwt"
   },
   pages: {
-    signIn: "/auth/signin",
+    signIn: "/auth/signin"
   },
   providers: [
     CredentialsProvider({
       name: "Credentials",
       credentials: {
         email: { label: "Email", type: "email", placeholder: "Email" },
-        password: { label: "Password", type: "password" },
+        password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
@@ -27,13 +27,13 @@ export const authOptions: NextAuthOptions = {
         }
         const response = await instance.post("/api/login", credentials);
 
-        if(response){
-          return response as unknown as ISignInResponse
+        if (response) {
+          return response as unknown as ISignInResponse;
         } else {
-          throw new Error( JSON.stringify({ errors: "Invalid credentials", status: 401 }))
+          throw new Error(JSON.stringify({ errors: "Invalid credentials", status: 401 }));
         }
-      },
-    }),
+      }
+    })
   ],
   callbacks: {
     async jwt({ token, user }) {
@@ -43,6 +43,6 @@ export const authOptions: NextAuthOptions = {
     async session({ session, token }) {
       session.user = token as any;
       return session;
-    },
+    }
   }
 };

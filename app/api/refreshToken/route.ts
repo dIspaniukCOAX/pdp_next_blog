@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { signJwtAccessToken, signJwtRefreshToken } from "@/lib/jwt";
+import { signJwtAccessToken } from "@/lib/jwt";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
@@ -8,8 +8,8 @@ export async function POST(request: Request) {
     const user = await db.user.findFirst({
       where: {
         access_token: body.access_token,
-        refresh_token: body.refresh_token,
-      },
+        refresh_token: body.refresh_token
+      }
     });
 
     if (!user) {
@@ -18,26 +18,23 @@ export async function POST(request: Request) {
 
     const accessToken = signJwtAccessToken({
       email: user?.email,
-      id: user?.id,
+      id: user?.id
     });
 
     await db.user.update({
       where: {
-        email: user.email,
+        email: user.email
       },
       data: {
-        access_token: accessToken,
-      },
+        access_token: accessToken
+      }
     });
 
     return NextResponse.json({
-        access_token: accessToken,
-        refresh_token: body.refreshToken
-    })
+      access_token: accessToken,
+      refresh_token: body.refreshToken
+    });
   } catch (error) {
-    NextResponse.json(
-      { message: "Something went wrong", error },
-      { status: 500 }
-    );
+    NextResponse.json({ message: "Something went wrong", error }, { status: 500 });
   }
 }

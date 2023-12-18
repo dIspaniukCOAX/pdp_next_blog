@@ -7,10 +7,10 @@ interface IFormContent {
   handleSubmit: () => void;
 }
 
-export default function FormContent<T>({
+export default function FormContent({
   children,
   buttonText,
-  handleSubmit,
+  handleSubmit
 }: PropsWithChildren<IFormContent>) {
   return (
     <form

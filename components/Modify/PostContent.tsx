@@ -1,20 +1,18 @@
 "use client";
 
 import { EmploymentType } from "@/enum/post.enum";
-import instance from "@/lib/instance";
 import React, { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Form } from "..";
 import { Input, Select } from "antd";
 import TextEditor from "../TextEditor/TextEditor";
-import { useRouter } from "next/navigation";
 import { IPost } from "@/types/post.type";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { postSchema } from "@/schemas/post.schema";
 
 const PostContent = ({
   postData,
-  onSubmit,
+  onSubmit
 }: {
   postData?: IPost | undefined;
   onSubmit: (data: any) => void;
@@ -25,7 +23,7 @@ const PostContent = ({
     control,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors }
   } = useForm({
     defaultValues: {
       title: "",
@@ -33,9 +31,9 @@ const PostContent = ({
       year_salary: "0",
       location: "",
       employment: EmploymentType.FULL_TIME,
-      description: "",
+      description: ""
     },
-    resolver: yupResolver(postSchema),
+    resolver: yupResolver(postSchema)
   });
 
   useEffect(() => {
@@ -46,24 +44,17 @@ const PostContent = ({
         year_salary: postData.year_salary,
         location: postData.location,
         employment: postData.employment as EmploymentType,
-        description: postData.description,
+        description: postData.description
       });
     }
   }, [postData]);
 
   return (
     <Form classes="max-w-full" title={`${isEdit ? "Edit" : "Create"} Post`}>
-      <Form.Content
-        buttonText="Save Post"
-        handleSubmit={handleSubmit(onSubmit)}
-      >
+      <Form.Content buttonText="Save Post" handleSubmit={handleSubmit(onSubmit)}>
         <div className="flex w-full gap-10">
           <div className="w-1/2">
-            <Form.Field
-              labelText="Title"
-              labelId="title"
-              errorMessage={errors.title?.message}
-            >
+            <Form.Field labelText="Title" labelId="title" errorMessage={errors.title?.message}>
               <Controller
                 control={control}
                 name="title"
@@ -163,12 +154,12 @@ const PostContent = ({
                   options={[
                     {
                       value: EmploymentType.FULL_TIME,
-                      label: EmploymentType.FULL_TIME,
+                      label: EmploymentType.FULL_TIME
                     },
                     {
                       value: EmploymentType.PART_TIME,
-                      label: EmploymentType.PART_TIME,
-                    },
+                      label: EmploymentType.PART_TIME
+                    }
                   ]}
                 />
               )}
@@ -176,23 +167,23 @@ const PostContent = ({
           </Form.Field>
         </div>
 
-          <Form.Field
-            labelText="Description"
-            labelId="description"
-            errorMessage={errors.description?.message}
-          >
-            <Controller
-              control={control}
-              name="description"
-              render={({ field }) => (
-                <TextEditor
-                  value={field.value}
-                  onChange={field.onChange}
-                  placeholder="Write Something..."
-                />
-              )}
-            />
-          </Form.Field>
+        <Form.Field
+          labelText="Description"
+          labelId="description"
+          errorMessage={errors.description?.message}
+        >
+          <Controller
+            control={control}
+            name="description"
+            render={({ field }) => (
+              <TextEditor
+                value={field.value}
+                onChange={field.onChange}
+                placeholder="Write Something..."
+              />
+            )}
+          />
+        </Form.Field>
       </Form.Content>
     </Form>
   );
